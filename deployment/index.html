@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Risk Prediction</title>
+    <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.js"></script>
+</head>
+<body>
+    <h1>Health Risk Prediction</h1>
+    <form id="healthForm">
+        <h2>Boolean Features (Check if Yes)</h2>
+        <!-- Boolean checkboxes for various health indicators -->
+        <label><input type="checkbox" id="HighBP"> High Blood Pressure</label><br>
+        <label><input type="checkbox" id="HighChol"> High Cholesterol</label><br>
+        <label><input type="checkbox" id="CholCheck"> Cholesterol Check</label><br>
+        <label><input type="checkbox" id="Smoker"> Smoker</label><br>
+        <label><input type="checkbox" id="Stroke"> Stroke</label><br>
+        <label><input type="checkbox" id="HeartDiseaseorAttack"> Heart Disease or Attack</label><br>
+        <label><input type="checkbox" id="PhysActivity"> Physical Activity</label><br>
+        <label><input type="checkbox" id="Fruits"> Fruits</label><br>
+        <label><input type="checkbox" id="Veggies"> Vegetables</label><br>
+        <label><input type="checkbox" id="HvyAlcoholConsump"> Heavy Alcohol Consumption</label><br>
+        <label><input type="checkbox" id="AnyHealthcare"> Any Healthcare</label><br>
+        <label><input type="checkbox" id="NoDocbcCost"> No Doctor due to Cost</label><br>
+        <label><input type="checkbox" id="DiffWalk"> Difficulty Walking</label><br>
+        <label><input type="checkbox" id="Sex"> Male</label><br>
+
+        <h2>Height and Weight for BMI Calculation</h2>
+        <label>Height (feet): <input type="number" id="heightFeet" min="1" max="8" step="1" value="5"></label><br>
+        <label>Height (inches): <input type="number" id="heightInches" min="0" max="11" step="1" value="8"></label><br>
+        <label>Weight (pounds): <input type="number" id="weight" min="50" max="600" step="1" value="150"></label><br>
+
+        <h2>Encoded Features</h2>
+        <label>General Health: 
+            <select id="GenHlth">
+                <option value="1">Excellent</option>
+                <option value="2">Very Good</option>
+                <option value="3">Good</option>
+                <option value="4">Fair</option>
+                <option value="5">Poor</option>
+            </select>
+        </label><br>
+
+        <label>Mental Health (Days with Issues): 
+            <select id="MentHlth_binned">
+                <option value="1">0 Days</option>
+                <option value="2">1-7 Days</option>
+                <option value="3">8-30 Days</option>
+            </select>
+        </label><br>
+
+        <label>Physical Health (Days with Issues): 
+            <select id="PhysHlth_binned">
+                <option value="1">0 Days</option>
+                <option value="2">1-7 Days</option>
+                <option value="3">8-30 Days</option>
+            </select>
+        </label><br>
+
+        <label>Age: 
+            <select id="Age">
+                <option value="1">18-24</option>
+                <option value="2">25-29</option>
+                <option value="3">30-34</option>
+                <option value="4">35-39</option>
+                <option value="5">40-44</option>
+                <option value="6">45-49</option>
+                <option value="7">50-54</option>
+                <option value="8">55-59</option>
+                <option value="9">60-64</option>
+                <option value="10">65-69</option>
+                <option value="11">70-74</option>
+                <option value="12">75-79</option>
+                <option value="13">80 or older</option>
+            </select>
+        </label><br>
+
+        <label>Education Level: 
+            <select id="Education_binned">
+                <option value="1">High School or Less</option>
+                <option value="2">Some College</option>
+                <option value="3">College Graduate</option>
+                <option value="4">Advanced Degree</option>
+            </select>
+        </label><br>
+
+        <label>Income Level: 
+            <select id="Income_binned">
+                <option value="1">Poverty</option>
+                <option value="2">Poor ($35,000)</option>
+                <option value="3">Middle Income</option>
+                <option value="4">High Income ($75,000+)</option>
+            </select>
+        </label><br>
+
+        <button type="button" id="predict_button">Predict</button>
+    </form>
+
+    <h2>Prediction Results</h2>
+    <p id="result"></p>
+
+<script src="catboost_model.js"></script>
+</body>
+</html>
