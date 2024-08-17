@@ -1,0 +1,177 @@
+/* Base styles */
+body {
+    font-family: Arial, sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    background-color: #f9f9f9;
+}
+
+/* Header styles */
+header {
+    padding: 20px;
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+}
+
+header .title h1 {
+    margin: 0;
+    font-size: 24px;
+    color: #e9ecef;
+}
+
+header .title h2 {
+    margin: 0;
+    font-size: 14px;
+    color: #fff;
+}
+
+header .links {
+    margin-top: 10px;
+}
+
+header .links a {
+    color: white;
+    margin-left: 15px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+header .links a:hover {
+    text-decoration: underline;
+}
+
+/* Form section styles */
+.form-section {
+    padding: 20px;
+    /*max-width: 600px;*/
+    margin: auto;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+h3 {
+    color: #007bff;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    font-size: 14px;
+}
+
+.checkbox {
+    margin-right: 10px;
+}
+
+.input-number,
+.select-box {
+    width: calc(100% - 20px);
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+}
+
+.submit-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 100%;
+    margin-top: 20px;
+    grid-column: 1 / -1;
+}
+
+.submit-btn:hover {
+    background-color: #c82333;
+}
+
+/* Result section styles */
+.result-section {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #e9ecef;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.result-section h3 {
+    color: #007bff;
+}
+
+/* Mobile first adjustments */
+@media (max-width: 600px) {
+    .form-section,
+    .result-section {
+        padding: 15px;
+        grid-template-columns: 1fr;
+    }
+}
+#predict_button {
+    max-width:350px;
+    margin:20px auto;
+}
+#prediction_box {
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+}
+#predict_wrap {
+    text-align:center;
+}
+
+/* Desktop adjustments */
+@media (min-width: 601px) {
+    html .form-section {
+        max-width: auto !important;
+        margin: 0;
+        padding: 20px;
+        width: 100%;
+    }
+    #healthForm {
+        grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+        display: grid;
+        grid-column-gap: 17px;
+    }
+    header {
+        display:grid;
+        grid-template-columns: auto auto;
+
+    }
+    header .title {
+        text-align:left;
+    }
+    header .links {
+        text-align:right;
+    }
+}
+#result {
+    font-size: 21px;
+    font-weight: bold;
+}
+#result.not_ok {
+    color: darkred;
+}
+#result.ok {
+    color: darkgreen;
+}
+.boolean_features .feature_desc {
+  padding-left: 33px;
+  padding-bottom: 18px;
+}
+.feature_desc {
+  color: #797070;
+}

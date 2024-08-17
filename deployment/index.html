@@ -3,103 +3,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Health Risk Prediction</title>
-    <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.js"></script>
+    <title>D.R.I.P. - Diabetes Risk Identification and Prediction</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.js" defer></script>
 </head>
 <body>
-    <h1>Health Risk Prediction</h1>
-    <form id="healthForm">
-        <h2>Boolean Features (Check if Yes)</h2>
-        <!-- Boolean checkboxes for various health indicators -->
-        <label><input type="checkbox" id="HighBP"> High Blood Pressure</label><br>
-        <label><input type="checkbox" id="HighChol"> High Cholesterol</label><br>
-        <label><input type="checkbox" id="CholCheck"> Cholesterol Check</label><br>
-        <label><input type="checkbox" id="Smoker"> Smoker</label><br>
-        <label><input type="checkbox" id="Stroke"> Stroke</label><br>
-        <label><input type="checkbox" id="HeartDiseaseorAttack"> Heart Disease or Attack</label><br>
-        <label><input type="checkbox" id="PhysActivity"> Physical Activity</label><br>
-        <label><input type="checkbox" id="Fruits"> Fruits</label><br>
-        <label><input type="checkbox" id="Veggies"> Vegetables</label><br>
-        <label><input type="checkbox" id="HvyAlcoholConsump"> Heavy Alcohol Consumption</label><br>
-        <label><input type="checkbox" id="AnyHealthcare"> Any Healthcare</label><br>
-        <label><input type="checkbox" id="NoDocbcCost"> No Doctor due to Cost</label><br>
-        <label><input type="checkbox" id="DiffWalk"> Difficulty Walking</label><br>
-        <label><input type="checkbox" id="Sex"> Male</label><br>
+    <header>
+        <div class="title">
+            <h1>D.R.I.P.</h1>
+            <h2>Diabetes Risk Identification and Prediction</h2>
+        </div>
+        <div class="links">
+            <a href="https://github.com/yourprofile" target="_blank">GitHub</a>
+            <a href="https://www.linkedin.com/in/yourprofile/" target="_blank">LinkedIn</a>
+        </div>
+    </header>
 
-        <h2>Height and Weight for BMI Calculation</h2>
-        <label>Height (feet): <input type="number" id="heightFeet" min="1" max="8" step="1" value="5"></label><br>
-        <label>Height (inches): <input type="number" id="heightInches" min="0" max="11" step="1" value="8"></label><br>
-        <label>Weight (pounds): <input type="number" id="weight" min="50" max="600" step="1" value="150"></label><br>
+    <section class="form-section">
+        <form id="healthForm">
+            <section class='subform-section boolean_features'>
+                <h3> Yes/No Questions (Check if Yes)</h3>
+                <!-- Boolean checkboxes for various health indicators -->
+                <label><input type="checkbox" id="HighBP" class="checkbox"> High Blood Pressure</label>
+                <div class="feature_desc">You have been diagnosed with high blood pressure?</div>
+                
+                <label><input type="checkbox" id="HighChol" class="checkbox"> High Cholesterol</label>
+                <div class="feature_desc">You have been diagnosed with high cholesterol?</div>
+                
+                <label><input type="checkbox" id="CholCheck" class="checkbox"> Checked Cholesterol</label>
+                <div class="feature_desc">You've had your cholesterol checked in the last 5 years?</div>
+                
+                <label><input type="checkbox" id="Smoker" class="checkbox"> Smoker</label>
+                <div class="feature_desc">Have smoked at least 100 cigarettes in your lifetime? (around 5 packs)</div>
+                
+                <label><input type="checkbox" id="Stroke" class="checkbox"> Stroke</label>
+                <div class="feature_desc">Have you been diagnosed with a stroke?</div>
+                
+                <label><input type="checkbox" id="HeartDiseaseorAttack" class="checkbox"> Heart Disease or Attack</label>
+                <div class="feature_desc">Have been diagnosed with coronary heart disease or myocardial infarction?</div>
+                
+                <label><input type="checkbox" id="PhysActivity" class="checkbox"> Physical Activity</label>
+                <div class="feature_desc">Have you engaged in physical activity in the last 30 days, not including job-related activities?</div>
+                
+                <label><input type="checkbox" id="Fruits" class="checkbox"> Fruits</label>
+                <div class="feature_desc">Do you consume fruits one or more times per day?</div>
+                
+                <label><input type="checkbox" id="Veggies" class="checkbox"> Vegetables</label>
+                <div class="feature_desc">Do you consume vegetables one or more times per day?</div>
+                
+                <label><input type="checkbox" id="HvyAlcoholConsump" class="checkbox"> Heavy Alcohol Consumption</label>
+                <div class="feature_desc">Are you a heavy drinker (men: >14 drinks/week, women: >7 drinks/week).</div>
+                
+                <label><input type="checkbox" id="AnyHealthcare" class="checkbox"> Healthcare Coverage</label>
+                <div class="feature_desc">Do you have any form of healthcare coverage?</div>
+                
+                <label><input type="checkbox" id="NoDocbcCost" class="checkbox"> Didn't See Doctor Due To Cost</label>
+                <div class="feature_desc">Is there a time in the last 12 months when you needed to see a doctor but could not because of cost?</div>
+                
+                <label><input type="checkbox" id="DiffWalk" class="checkbox"> Difficulty Walking</label>
+                <div class="feature_desc">Do you have serious difficulty walking or climbing stairs?</div>
+                
+                <label><input type="checkbox" id="Sex" class="checkbox"> Male</label>
+                <div class="feature_desc">Check if you are male, leave unchecked for female.</div>
+            </section>
 
-        <h2>Encoded Features</h2>
-        <label>General Health: 
-            <select id="GenHlth">
-                <option value="1">Excellent</option>
-                <option value="2">Very Good</option>
-                <option value="3">Good</option>
-                <option value="4">Fair</option>
-                <option value="5">Poor</option>
-            </select>
-        </label><br>
+            <section class='subform-section'>
+                <h3>Height and Weight for BMI Calculation</h3>
+                <div class=""feature_desc" style="margin-top:0px;padding-bottom:8px;">BMI stands for <b>B</b>ody <b>M</b>ass <b>I</b>ndex</div>
+                <label>Height (feet): <input type="number" id="height_feet" class="input-number" min="1" max="8" step="1"
+                        value="5"></label>
+                <label>Height (inches): <input type="number" id="height_inches" class="input-number" min="0" max="11" step="1"
+                        value="8"></label>
+                <label>Weight (pounds): <input type="number" id="weight" class="input-number" min="50" max="600" step="1"
+                        value="150"></label>
+                <div id="bmi_wrap">Your BMI: <span id="bmi_rating"></span></div>
+                <div class="feature_desc">BMI outside the range of 12-60 are capped.</div>
+            </section>
 
-        <label>Mental Health (Days with Issues): 
-            <select id="MentHlth_binned">
-                <option value="1">0 Days</option>
-                <option value="2">1-7 Days</option>
-                <option value="3">8-30 Days</option>
-            </select>
-        </label><br>
+            <section class='subform-section'>
+                <h3>Categorical Questions</h3>
+                <label>General Health:
+                    <div class="feature_desc">Self-assessment of your general health.</div>
+                    <select id="GenHlth" class="select-box">
+                        <option value="1">Excellent</option>
+                        <option value="2">Very Good</option>
+                        <option value="3">Good</option>
+                        <option value="4">Fair</option>
+                        <option value="5">Poor</option>
+                    </select>
+                </label>
+                
+                <label>Mental Health (Days with Issues):
+                    <div class="feature_desc">Number of days in the last 30 days when your mental health was not good. (Groupings are more informative than individual days)</div>
+                    <select id="MentHlth_binned" class="select-box">
+                        <option value="1">0 Days</option>
+                        <option value="2">1-7 Days</option>
+                        <option value="3">8-30 Days</option>
+                    </select>
+                </label>
+            
+                <label>Physical Health (Days with Issues):
+                    <div class="feature_desc">Number of days in the last 30 days when your physical health was not good. (Groupings are more informative than individual days)</div>
+                    <select id="PhysHlth_binned" class="select-box">
+                        <option value="1">0 Days</option>
+                        <option value="2">1-7 Days</option>
+                        <option value="3">8-30 Days</option>
+                    </select>
+                </label>
+            
+                <label>Age:
+                    <div class="feature_desc">Your age category.</div>
+                    <select id="Age" class="select-box">
+                        <option value="1">18-24</option>
+                        <option value="2">25-29</option>
+                        <option value="3">30-34</option>
+                        <option value="4">35-39</option>
+                        <option value="5">40-44</option>
+                        <option value="6">45-49</option>
+                        <option value="7">50-54</option>
+                        <option value="8">55-59</option>
+                        <option value="9">60-64</option>
+                        <option value="10">65-69</option>
+                        <option value="11">70-74</option>
+                        <option value="12">75-79</option>
+                        <option value="13">80 or older</option>
+                    </select>
+                </label>
+            
+                <label>Education Level:
+                    <div class="feature_desc">Your highest level of completed education.</div>
+                    <select id="Education_binned" class="select-box">
+                        <option value="1">High School or Less</option>
+                        <option value="2">Some College</option>
+                        <option value="3">College Graduate</option>
+                        <option value="4">Advanced Degree</option>
+                    </select>
+                </label>
+            
+                <label>Income Level:
+                    <div class="feature_desc">Your income category.</div>
+                    <select id="Income_binned" class="select-box">
+                        <option value="1">Poverty (below $34,999)</option>
+                        <option value="2">Poor (up to $35,000)</option>
+                        <option value="3">Middle Income ($35,001 to $74,999)</option>
+                        <option value="4">High Income ($75,000+)</option>
+                    </select>
+                </label>
+            </section>
 
-        <label>Physical Health (Days with Issues): 
-            <select id="PhysHlth_binned">
-                <option value="1">0 Days</option>
-                <option value="2">1-7 Days</option>
-                <option value="3">8-30 Days</option>
-            </select>
-        </label><br>
+        </form>
+    </section>
 
-        <label>Age: 
-            <select id="Age">
-                <option value="1">18-24</option>
-                <option value="2">25-29</option>
-                <option value="3">30-34</option>
-                <option value="4">35-39</option>
-                <option value="5">40-44</option>
-                <option value="6">45-49</option>
-                <option value="7">50-54</option>
-                <option value="8">55-59</option>
-                <option value="9">60-64</option>
-                <option value="10">65-69</option>
-                <option value="11">70-74</option>
-                <option value="12">75-79</option>
-                <option value="13">80 or older</option>
-            </select>
-        </label><br>
+<div id="prediction_box">
+    <div id="predict_wrap">
+        <button type="button" id="predict_button" class="submit-btn">Predict</button>
+    </div>
+    <div id="predict_results">
+        <p id="result"></p>
+    </div>
+</div>
 
-        <label>Education Level: 
-            <select id="Education_binned">
-                <option value="1">High School or Less</option>
-                <option value="2">Some College</option>
-                <option value="3">College Graduate</option>
-                <option value="4">Advanced Degree</option>
-            </select>
-        </label><br>
-
-        <label>Income Level: 
-            <select id="Income_binned">
-                <option value="1">Poverty</option>
-                <option value="2">Poor ($35,000)</option>
-                <option value="3">Middle Income</option>
-                <option value="4">High Income ($75,000+)</option>
-            </select>
-        </label><br>
-
-        <button type="button" id="predict_button">Predict</button>
-    </form>
-
-    <h2>Prediction Results</h2>
-    <p id="result"></p>
-
-<script src="catboost_model.js"></script>
+<script src="catboost_model.js" defer></script>
 </body>
 </html>
