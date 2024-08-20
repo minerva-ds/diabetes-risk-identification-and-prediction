@@ -1,6 +1,5 @@
 # D.R.I.P.: Diabetes Risk Identification and Prediction Tool
 
-
 ![Diabetes Risk Prediction](images/drip-header.png)
 
 ## Business Understanding
@@ -12,8 +11,17 @@
 ## Conclusion
 
 ## Main Project Files
-- **Final Notebook**: [Diabetes Risk Prediction Notebook](notebook.ipynb)
-- **Presentation**: [Project Presentation](presentation.pdf)
+[**D.R.I.P.**](https://minerva-ds.github.io/diabetes-risk-identification-and-prediction/deployment/) 
+<br>Usable single page application that uses your self reported data to predict your diabetes risk.
+
+[**Dashboard**](https://minerva-ds.github.io/diabetes-risk-identification-and-prediction/dashboard_files/combined_dashboard.html)
+<br>Interactive charts from the project.
+
+[**Final Notebook**](notebook.ipynb)
+<br>The entire process used to make the tool and charts well documented in a Jupyer notebook with markdown.
+
+[**Presentation**](presentation.pdf)
+<br>The presentation slides.
 
 ## Further Development
 
@@ -50,7 +58,6 @@
 | **/environment_ubuntu.yml**        | Ubuntu-specific Conda environment file                    |
 | **/images**                        | Directory for storing images used in README or notebooks  |
 | ├── drip-header.png                | Header image for README or documentation                  |
-| └── feature_impact_class1_before_removal.png | Image of feature impacts before cleaning            |
 | **/notebook.ipynb**                | Jupyter notebook with the project analysis                |
 | **/README.md**                     | README file for project overview and navigation           |
 | **/scrapbook**                     | Additional notebooks for exploratory analysis             |
@@ -59,10 +66,10 @@
 
 ## Reproducibility
 ### Prerequisites
-Before setting up your environment, complete these essential steps:
+Ensure you have these before continuing with the rest of the setup!
 
 #### 1. **Clone the Repository**
-It's assumed you have Git installed and are familiar with basic commands. If you haven't yet installed Git, you can download it from [git-scm.com](https://git-scm.com).
+It's assumed you have Git installed and are familiar with basic Git commands. If you haven't yet installed Git, you can download it from [git-scm.com](https://git-scm.com).
 
 To clone the repository, open your command line tool:
 - **macOS/Linux**: Open Terminal.
