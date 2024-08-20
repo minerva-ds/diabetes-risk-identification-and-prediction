@@ -15,60 +15,63 @@
 - **Final Notebook**: [Diabetes Risk Prediction Notebook](notebook.ipynb)
 - **Presentation**: [Project Presentation](presentation.pdf)
 
+## Further Development
+
 ## Repository Structure
 
 | Directory/File                     | Description                                               |
 |------------------------------------|-----------------------------------------------------------|
-| **/dashboard_files**               | Directory for dashboard-related HTML files                |
-| ├── combined_dashboard.html        | Combined view of all analysis dashboards                  |
-| ├── mean_impact.html               | Dashboard showing mean impact of variables                |
-| ├── roc_auc.html                   | ROC AUC curve for the models                              |
-| ├── threshold_analysis.html        | Analysis of various threshold settings                    |
 | **/data**                          | Data files used in analysis                               |
 | ├── cdc_diabetes_data_features.pkl | Pickled file containing feature data                      |
 | ├── cdc_diabetes_data_metadata.json| Metadata for the dataset                                  |
 | ├── cdc_diabetes_data_targets.pkl  | Pickled file containing target data                       |
 | ├── cdc_diabetes_data_variables.pkl| Information about dataset variables                       |
-| **/deployment**                    | Files related to model deployment                         |
-| ├── /catboost_info                 | Directory containing CatBoost training logs               |
-| │   ├── catboost_training.json     | JSON file with training parameters                        |
-| │   ├── /learn                     | Learning output files                                     |
-| │   │   └── events.out.tfevents    | TensorBoard events file                                   |
-| │   ├── learn_error.tsv            | TSV file with error logs                                  |
-| │   ├── time_left.tsv              | Time estimations for training completion                  |
-| │   └── tmp                        | Temporary files used during training                      |
-| ├── catboost_model.js              | JavaScript file for model deployment                      |
-| ├── index.html                     | Main HTML file for the deployment site                    |
-| ├── /models                        | Stored models in various formats                          |
-| │   ├── catboost_model_fixed.onnx  | ONNX model with fixed parameters                          |
-| │   ├── catboost_model_no_zipmap.onnx | ONNX model without zipmap                                |
-| │   ├── catboost_model.onnx        | Default CatBoost model in ONNX format                     |
-| │   └── model.onnx                 | General model file                                        |
-| ├── /scripts                       | Scripts used in deployment                                |
-| │   └── dump_model.py              | Script for dumping model into deployable format           |
-| ├── styles.css                     | CSS styles for the deployment frontend                    |
-| └── /test_onnx                     | HTML files for testing ONNX models                        |
-|     └── simple-example.html        | Simple HTML file for ONNX model testing                   |
+| **/docs**                          | Root directory for GitHub Pages content                   |
+| ├── **/dashboard_files**           | Directory for dashboard-related HTML files                |
+| │   ├── combined_dashboard.html    | Combined view of all analysis dashboards                  |
+| │   ├── mean_impact.html           | Dashboard showing mean impact of variables                |
+| │   ├── roc_auc.html               | ROC AUC curve for the models                              |
+| │   └── threshold_analysis.html    | Analysis of various threshold settings                    |
+| ├── **/deployment**                | Files related to model deployment                         |
+| │   ├── catboost_model.js          | JavaScript file for model deployment                      |
+| │   ├── index.html                 | Main HTML file for the deployment site                    |
+| │   ├── **/models**                | Stored models in various formats                          |
+| │   │   ├── catboost_model_fixed.onnx | ONNX model with fixed parameters                        |
+| │   │   ├── catboost_model_no_zipmap.onnx | ONNX model without zipmap                             |
+| │   │   ├── catboost_model.onnx    | Default CatBoost model in ONNX format                     |
+| │   │   └── model.onnx             | General model file                                        |
+| │   ├── **/scripts**               | Scripts used in deployment                                |
+| │   │   └── dump_model.py          | Script for dumping model into deployable format           |
+| │   ├── styles.css                 | CSS styles for the deployment frontend                    |
+| │   └── **/test_onnx**             | HTML files for testing ONNX models                        |
+| │       └── simple-example.html    | Simple HTML file for ONNX model testing                   |
+| └── index.html                     | Main HTML file linking to project components              |
+| **/environment_no_builds.yml**     | Conda environment file                                    |
+| **/environment_ubuntu.yml**        | Ubuntu-specific Conda environment file                    |
 | **/images**                        | Directory for storing images used in README or notebooks  |
 | ├── drip-header.png                | Header image for README or documentation                  |
-| └── feature_impact_class1_before_removal.png | Image of feature impacts before cleaning              |
+| └── feature_impact_class1_before_removal.png | Image of feature impacts before cleaning            |
 | **/notebook.ipynb**                | Jupyter notebook with the project analysis                |
 | **/README.md**                     | README file for project overview and navigation           |
 | **/scrapbook**                     | Additional notebooks for exploratory analysis             |
 | └── scrapbook.ipynb                | Notebook for storing miscellaneous analyses               |
 
 
-## Further Development
-
 ## Reproducibility
 ### Prerequisites
 Before setting up your environment, complete these essential steps:
 
 #### 1. **Clone the Repository**
-First, clone the repository to your local machine:
+It's assumed you have Git installed and are familiar with basic commands. If you haven't yet installed Git, you can download it from [git-scm.com](https://git-scm.com).
+
+To clone the repository, open your command line tool:
+- **macOS/Linux**: Open Terminal.
+- **Windows**: Open Git Bash (recommended for Git operations).
+
+Then execute the following commands:
 ```bash
-git clone [repository-url]
-cd [repository-name]
+git clone https://github.com/minerva-ds/diabetes-risk-identification-and-prediction
+cd diabetes-risk-identification-and-prediction
 ```
 
 #### 2. **Install Conda**
