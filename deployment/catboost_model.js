@@ -9,23 +9,21 @@ let features = {
     'PhysActivity': false,  // bool
     'Fruits': false,  // bool
     'Veggies': false,  // bool
-    'HvyAlcoholConsump': false,  // bool
     'AnyHealthcare': false,  // bool
     'NoDocbcCost': false,  // bool
     'GenHlth': 1,  // uint8
     'DiffWalk': false,  // bool
     'Sex': false,  // bool
     'Age': 1,  // uint8
-    'MentHlth_binned': 1,  // uint8
-    'PhysHlth_binned': 1,  // uint8
-    'Education_binned': 1,  // uint8
-    'Income_binned': 1,  // uint8
-    'BMI_GenHlth_interaction': 0,  // uint8
-    'Income_binned_GenHlth_interaction': 0,  // uint8
-    'GenHlth_Age_interaction': 0,  // uint8
-    'Age_PhysHlth_binned_interaction': 0  // uint8
+    'MentHlth': 0,  // uint8 (0-30 days, adjusted from MentHlth_binned)
+    'PhysHlth': 0,  // uint8 (0-30 days, adjusted from PhysHlth_binned)
+    'Education': 1,  // uint8 (adjusted from Education_binned)
+    'Income': 1,  // uint8 (adjusted from Income_binned)
+    'BMI_Age_interaction': 0,  // uint8 (interaction term calculated dynamically)
+    'Income_GenHlth_interaction': 0,  // uint8 (interaction term calculated dynamically)
+    'PhysHlth_BMI_interaction': 0,  // uint8 (interaction term calculated dynamically)
+    'MentHlth_BMI_interaction': 0  // uint8 (interaction term calculated dynamically)
 };
-
 
 function calculate_bmi() {
     let height_feet = parseFloat(document.querySelector("#height_feet").value);
@@ -56,10 +54,10 @@ function calculate_bmi() {
 
 function calculate_interaction_terms(features) {
     return {
-        'BMI_GenHlth_interaction': features['BMI'] * features['GenHlth'],
-        'Income_binned_GenHlth_interaction': features['Income_binned'] * features['GenHlth'],
-        'GenHlth_Age_interaction': features['GenHlth'] * features['Age'],
-        'Age_PhysHlth_binned_interaction': features['Age'] * features['PhysHlth_binned']
+        'BMI_Age_interaction': features['BMI'] * features['Age'],
+        'Income_GenHlth_interaction': features['Income'] * features['GenHlth'],
+        'PhysHlth_BMI_interaction': features['PhysHlth'] * features['BMI'],
+        'MentHlth_BMI_interaction': features['MentHlth'] * features['BMI']
     };
 }
 
@@ -120,7 +118,7 @@ async function run_model() {
 
         // Get the probability of class 1 (diabetes risk)
         let probability_class_1 = results.probabilities.data[1];
-        let threshold = 0.36;
+        let threshold = 0.32;
 
         // Rescale the probability so that 0.28 corresponds to 50%
         let adjusted_probability = (probability_class_1 - threshold) / (2 * (1 - threshold)) + 0.5;
@@ -145,15 +143,77 @@ async function run_model() {
         console.error('Error during inference:', err);
     }
 }
+function predict() {
+    document.querySelector("#predict_button").addEventListener("click", async function() {
+        await run_model(); // Wait for the async function to complete
+        scroll_to_prediction_box(); // Scroll to the bottom of the #prediction_box after run_model completes
+    });
+}
+
+function bmi_listeners() {
+    let height_feet_element = document.querySelector("#height_feet");
+    let height_inches_element = document.querySelector("#height_inches");
+    let weight_element = document.querySelector("#weight");
+
+    height_feet_element.addEventListener("input", calculate_bmi);
+    height_inches_element.addEventListener("input", calculate_bmi);
+    weight_element.addEventListener("input", calculate_bmi);
+}
+
+function advanced_view_toggle() {
+    let advanced_view_toggle = document.querySelector("#advancedViewToggle");
+    advanced_view_toggle.addEventListener("change", toggle_advanced_view);
+
+    // Trigger the initial state of the advanced features based on the checkbox status
+    advanced_view_toggle.dispatchEvent(new Event("change"));
+}
+
+function toggle_advanced_view() {
+    let advanced_view_toggle = document.querySelector("#advancedViewToggle");
+    let advanced_features = document.querySelectorAll(".advanced-feature");
+
+    if (advanced_view_toggle.checked) {
+        advanced_features.forEach(function(feature) {
+            feature.style.display = "block"; // Show advanced features
+        });
+    } else {
+        advanced_features.forEach(function(feature) {
+            feature.style.display = "none"; // Hide advanced features
+        });
+    }
+}
+
+function advanced_view_modal() {
+    let modal = document.getElementById("advancedViewDialog");
+    let info_icon = document.getElementById("advancedViewInfo");
+    let close_modal = document.getElementById("closeModal");
+
+    info_icon.addEventListener("click", function() {
+        modal.style.display = "block";
+    });
+
+    close_modal.addEventListener("click", function() {
+        modal.style.display = "none";
+    });
+
+    window.addEventListener("click", function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    });
+}
+function scroll_to_prediction_box() {
+    let predict_box = document.querySelector("#prediction_box");
+    if (predict_box) {
+        predict_box.scrollIntoView({ behavior: "smooth", block: "end" });
+    }
+}
+
 
 document.addEventListener("DOMContentLoaded", function() {
-    document.querySelector("#predict_button").addEventListener("click", run_model);
-
-    let heightFeetElement = document.querySelector("#height_feet");
-    let heightInchesElement = document.querySelector("#height_inches");
-    let weightElement = document.querySelector("#weight");
-    heightFeetElement.addEventListener("input", calculate_bmi);
-    heightInchesElement.addEventListener("input", calculate_bmi);
-    weightElement.addEventListener("input", calculate_bmi);
-    calculate_bmi()
+    predict();
+    bmi_listeners();
+    calculate_bmi();  // Calculate BMI on page load
+    advanced_view_toggle();
+    advanced_view_modal();
 });

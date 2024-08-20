@@ -13,63 +13,115 @@
             <h1>D.R.I.P.</h1>
             <h2>Diabetes Risk Identification and Prediction</h2>
         </div>
+        <div class="view-toggle">
+            <label>
+                <input type="checkbox" id="advancedViewToggle" class="checkbox"> Advanced View
+            </label>
+            <span id="advancedViewInfo" class="info-icon">(?)</span>
+        </div>
         <div class="links">
             <a href="https://github.com/yourprofile" target="_blank">GitHub</a>
             <a href="https://www.linkedin.com/in/yourprofile/" target="_blank">LinkedIn</a>
         </div>
     </header>
+    <div class="infotext">
+        <p><span class="bluetext">This tool is designed to pre-screen for Type 2 Diabetes risk and for awareness and education of risk factors.</span> <b>It is not a diagnosis</b>, nor is it a substitute for consultation with a medical professional. <span class="greentext">In testing, this tool accurately identified 81% of diabetes cases on unseen data.</span></p>
+    </div>
+    <div class="infotext">
+        <p><span class="greentext">This tool is fully private.</span> All processing occurs within your browser, ensuring that no data is sent, stored, or shared externally. However, <b>do not use this tool on a public or shared device.</b></p>
+    </div>
+    <!-- Modal Dialog for Advanced View Explanation -->
+    <div id="advancedViewDialog" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span id="closeModal" class="close">&times;</span>
+            <h2>Advanced View</h2>
+            <div class="infotext">
+                <p>In summary, the features in the basic view are generally more robust predictors and easier to interpret. The Advanced View provides additional context but should be used with an understanding of the following nuances.</p>
+            </div>
+            <p>The Advanced View allows you to input additional health metrics that, while valuable for model training, may have a less direct impact on diabetes risk prediction.</p>
+            <p>Some of these metrics can be counterintuitive. For example, a history of cholesterol checks is correlated with an increased risk of diabetes. This correlation does not imply causation; rather, it may reflect underlying health concerns that prompt more frequent screenings.</p>
+            <p>These features contributed to refining the model's accuracy, even if their individual impact is low. In some cases, they may be overshadowed by stronger predictors within the data. For instance, certain configurations may show that poorer mental health slightly reduces diabetes risk, illustrating the complexities and nuances of predictive modeling.</p>
+            <p>Additionally, some features may be underrepresented in the data. For instance, in cases where difficulty walking is less common, the model may inaccurately associate this with a slightly reduced risk of diabetes.</p>
+            <p>It's important to note that completely excluding these features during training resulted in models with reduced predictive accuracy</p>
+        </div>
+    </div>
 
     <section class="form-section">
         <form id="healthForm">
             <section class='subform-section boolean_features'>
                 <h3> Yes/No Questions (Check if Yes)</h3>
                 <!-- Boolean checkboxes for various health indicators -->
-                <label><input type="checkbox" id="HighBP" class="checkbox"> High Blood Pressure</label>
-                <div class="feature_desc">You have been diagnosed with high blood pressure?</div>
                 
-                <label><input type="checkbox" id="HighChol" class="checkbox"> High Cholesterol</label>
-                <div class="feature_desc">You have been diagnosed with high cholesterol?</div>
+                <div class="feature-wrap">
+                    <label><input type="checkbox" id="HighBP" class="checkbox"> High Blood Pressure</label>
+                    <div class="feature_desc">You have been diagnosed with high blood pressure?</div>
+                </div>
                 
-                <label><input type="checkbox" id="CholCheck" class="checkbox"> Checked Cholesterol</label>
-                <div class="feature_desc">You've had your cholesterol checked in the last 5 years?</div>
+                <div class="feature-wrap">
+                    <label><input type="checkbox" id="HighChol" class="checkbox"> High Cholesterol</label>
+                    <div class="feature_desc">You have been diagnosed with high cholesterol?</div>
+                </div>
                 
-                <label><input type="checkbox" id="Smoker" class="checkbox"> Smoker</label>
-                <div class="feature_desc">Have smoked at least 100 cigarettes in your lifetime? (around 5 packs)</div>
+                <div class="feature-wrap advanced-feature">
+                    <label><input type="checkbox" id="CholCheck" class="checkbox"> Checked Cholesterol</label>
+                    <div class="feature_desc">You've had your cholesterol checked in the last 5 years?</div>
+                </div>
                 
-                <label><input type="checkbox" id="Stroke" class="checkbox"> Stroke</label>
-                <div class="feature_desc">Have you been diagnosed with a stroke?</div>
+                <div class="feature-wrap advanced-feature">
+                    <label><input type="checkbox" id="Smoker" class="checkbox"> Smoker</label>
+                    <div class="feature_desc">Have smoked at least 100 cigarettes in your lifetime? (around 5 packs)</div>
+                </div>
                 
-                <label><input type="checkbox" id="HeartDiseaseorAttack" class="checkbox"> Heart Disease or Attack</label>
-                <div class="feature_desc">Have been diagnosed with coronary heart disease or myocardial infarction?</div>
+                <div class="feature-wrap advanced-feature">
+                    <label><input type="checkbox" id="Stroke" class="checkbox"> Stroke</label>
+                    <div class="feature_desc">Have you been diagnosed with a stroke?</div>
+                </div>
                 
-                <label><input type="checkbox" id="PhysActivity" class="checkbox"> Physical Activity</label>
-                <div class="feature_desc">Have you engaged in physical activity in the last 30 days, not including job-related activities?</div>
+                <div class="feature-wrap">
+                    <label><input type="checkbox" id="HeartDiseaseorAttack" class="checkbox"> Heart Disease or Attack</label>
+                    <div class="feature_desc">Have been diagnosed with coronary heart disease or myocardial infarction?</div>
+                </div>
                 
-                <label><input type="checkbox" id="Fruits" class="checkbox"> Fruits</label>
-                <div class="feature_desc">Do you consume fruits one or more times per day?</div>
+                <div class="feature-wrap advanced-feature">
+                    <label><input type="checkbox" id="PhysActivity" class="checkbox"> Physical Activity</label>
+                    <div class="feature_desc">Have you engaged in physical activity in the last 30 days, not including job-related activities?</div>
+                </div>
                 
-                <label><input type="checkbox" id="Veggies" class="checkbox"> Vegetables</label>
-                <div class="feature_desc">Do you consume vegetables one or more times per day?</div>
+                <div class="feature-wrap advanced-feature">
+                    <label><input type="checkbox" id="Fruits" class="checkbox"> Fruits</label>
+                    <div class="feature_desc">Do you consume fruits one or more times per day?</div>
+                </div>
                 
-                <label><input type="checkbox" id="HvyAlcoholConsump" class="checkbox"> Heavy Alcohol Consumption</label>
-                <div class="feature_desc">Are you a heavy drinker (men: >14 drinks/week, women: >7 drinks/week).</div>
+                <div class="feature-wrap advanced-feature">
+                    <label><input type="checkbox" id="Veggies" class="checkbox"> Vegetables</label>
+                    <div class="feature_desc">Do you consume vegetables one or more times per day?</div>
+                </div>
                 
-                <label><input type="checkbox" id="AnyHealthcare" class="checkbox"> Healthcare Coverage</label>
-                <div class="feature_desc">Do you have any form of healthcare coverage?</div>
+                <div class="feature-wrap advanced-feature">
+                    <label><input type="checkbox" id="AnyHealthcare" class="checkbox"> Healthcare Coverage</label>
+                    <div class="feature_desc">Do you have any form of healthcare coverage?</div>
+                </div>
                 
-                <label><input type="checkbox" id="NoDocbcCost" class="checkbox"> Didn't See Doctor Due To Cost</label>
-                <div class="feature_desc">Is there a time in the last 12 months when you needed to see a doctor but could not because of cost?</div>
+                <div class="feature-wrap advanced-feature">
+                    <label><input type="checkbox" id="NoDocbcCost" class="checkbox"> Didn't See Doctor Due To Cost</label>
+                    <div class="feature_desc">Is there a time in the last 12 months when you needed to see a doctor but could not because of cost?</div>
+                </div>
                 
-                <label><input type="checkbox" id="DiffWalk" class="checkbox"> Difficulty Walking</label>
-                <div class="feature_desc">Do you have serious difficulty walking or climbing stairs?</div>
+                <div class="feature-wrap advanced-feature">
+                    <label><input type="checkbox" id="DiffWalk" class="checkbox"> Difficulty Walking</label>
+                    <div class="feature_desc">Do you have serious difficulty walking or climbing stairs?</div>
+                </div>
                 
-                <label><input type="checkbox" id="Sex" class="checkbox"> Male</label>
-                <div class="feature_desc">Check if you are male, leave unchecked for female.</div>
+                <div class="feature-wrap advanced-feature">
+                    <label><input type="checkbox" id="Sex" class="checkbox"> Male</label>
+                    <div class="feature_desc">Check if you are male, leave unchecked for female.</div>
+                </div>
             </section>
+
 
             <section class='subform-section'>
                 <h3>Height and Weight for BMI Calculation</h3>
-                <div class=""feature_desc" style="margin-top:0px;padding-bottom:8px;">BMI stands for <b>B</b>ody <b>M</b>ass <b>I</b>ndex</div>
+                <div class="feature_desc" style="margin-top:0px;padding-bottom:8px;">BMI stands for <b>B</b>ody <b>M</b>ass <b>I</b>ndex</div>
                 <label>Height (feet): <input type="number" id="height_feet" class="input-number" min="1" max="8" step="1"
                         value="5"></label>
                 <label>Height (inches): <input type="number" id="height_inches" class="input-number" min="0" max="11" step="1"
@@ -93,22 +145,14 @@
                     </select>
                 </label>
                 
-                <label>Mental Health (Days with Issues):
-                    <div class="feature_desc">Number of days in the last 30 days when your mental health was not good. (Groupings are more informative than individual days)</div>
-                    <select id="MentHlth_binned" class="select-box">
-                        <option value="1">0 Days</option>
-                        <option value="2">1-7 Days</option>
-                        <option value="3">8-30 Days</option>
-                    </select>
+                <label class="advanced-feature">Mental Health (Days with Issues):
+                    <div class="feature_desc advanced-feature">Number of days in the last 30 days when your mental health was not good.</div>
+                    <input type="number" id="MentHlth" class="input-number advanced-feature" min="0" max="30" step="1" value="0">
                 </label>
             
-                <label>Physical Health (Days with Issues):
-                    <div class="feature_desc">Number of days in the last 30 days when your physical health was not good. (Groupings are more informative than individual days)</div>
-                    <select id="PhysHlth_binned" class="select-box">
-                        <option value="1">0 Days</option>
-                        <option value="2">1-7 Days</option>
-                        <option value="3">8-30 Days</option>
-                    </select>
+                <label class="advanced-feature">Physical Health (Days with Issues):
+                    <div class="feature_desc advanced-feature">Number of days in the last 30 days when your physical health was not good.</div>
+                    <input type="number" id="PhysHlth" class="input-number advanced-feature" min="0" max="30" step="1" value="0">
                 </label>
             
                 <label>Age:
@@ -132,7 +176,7 @@
             
                 <label>Education Level:
                     <div class="feature_desc">Your highest level of completed education.</div>
-                    <select id="Education_binned" class="select-box">
+                    <select id="Education" class="select-box">
                         <option value="1">High School or Less</option>
                         <option value="2">Some College</option>
                         <option value="3">College Graduate</option>
@@ -142,7 +186,7 @@
             
                 <label>Income Level:
                     <div class="feature_desc">Your income category.</div>
-                    <select id="Income_binned" class="select-box">
+                    <select id="Income" class="select-box">
                         <option value="1">Poverty (below $34,999)</option>
                         <option value="2">Poor (up to $35,000)</option>
                         <option value="3">Middle Income ($35,001 to $74,999)</option>
@@ -154,15 +198,16 @@
         </form>
     </section>
 
-<div id="prediction_box">
-    <div id="predict_wrap">
-        <button type="button" id="predict_button" class="submit-btn">Predict</button>
+    <div id="prediction_box">
+        <div id="predict_wrap">
+            <button type="button" id="predict_button" class="submit-btn">Predict</button>
+        </div>
+        <div id="predict_results">
+            <p id="result" class="ok">The estimation of your diabetes risk will appear here.</p>
+        </div>
     </div>
-    <div id="predict_results">
-        <p id="result"></p>
-    </div>
-</div>
 
-<script src="catboost_model.js" defer></script>
+    <!-- External JavaScript file for handling form submission and prediction logic -->
+    <script src="catboost_model.js" defer></script>
 </body>
 </html>

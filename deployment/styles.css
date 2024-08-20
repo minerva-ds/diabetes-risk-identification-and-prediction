@@ -1,4 +1,4 @@
-/* Base styles */
+/* Base Styles */
 body {
     font-family: Arial, sans-serif;
     color: #333;
@@ -8,12 +8,24 @@ body {
     background-color: #f9f9f9;
 }
 
-/* Header styles */
+h3 {
+    color: #007bff;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    font-size: 14px;
+}
+
+/* Header Styles */
 header {
     padding: 20px;
     background-color: #007bff;
     color: white;
     text-align: center;
+    display: grid;
 }
 
 header .title h1 {
@@ -28,7 +40,12 @@ header .title h2 {
     color: #fff;
 }
 
+header .title {
+    text-align: left;
+}
+
 header .links {
+    text-align: right;
     margin-top: 10px;
 }
 
@@ -43,10 +60,66 @@ header .links a:hover {
     text-decoration: underline;
 }
 
-/* Form section styles */
+.infotext {
+    background-color: #fff3cd; /* Light yellow background */
+    border-left: 4px solid #007bff; /* Blue border on the left */
+    padding: 15px;
+    margin: 10px auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+    font-size: 14px;
+    color: #333;
+    position: relative;
+}
+.greentext {
+    color: #28a745;
+    font-weight: bold;
+}
+.bluetext {
+    color:#007bff; 
+    font-weight: bold;
+}
+
+.infotext p {
+    margin: 0;
+    padding-left: 25px; /* Space for the icon */
+    position: relative;
+}
+
+.infotext p::before {
+    content: "\2139"; /* Unicode for the info icon (ℹ) */
+    font-size: 18px;
+    color: #007bff;
+    position: absolute;
+    left: 0;
+    top: 0;
+    line-height: 1.2;
+}
+
+.infotext b {
+    color: #dc3545; /* Red color for strong warning */
+}
+
+/* Advanced View Toggle Styles */
+.view-toggle {
+    margin-top: 10px;
+    margin-right: 15px;
+    margin-left: 15px;
+}
+
+.view-toggle label {
+    display: inline;
+}
+
+.info-icon {
+    cursor: pointer;
+    color: #fff;
+    margin-left: 10px;
+    text-decoration: underline;
+}
+
+/* Form Section Styles */
 .form-section {
     padding: 20px;
-    /*max-width: 600px;*/
     margin: auto;
     background-color: white;
     border-radius: 8px;
@@ -56,15 +129,13 @@ header .links a:hover {
     gap: 20px;
 }
 
-h3 {
-    color: #007bff;
-    font-size: 18px;
-    margin-bottom: 10px;
+.boolean_features .feature_desc {
+    padding-left: 33px;
+    padding-bottom: 18px;
 }
 
-label {
-    display: block;
-    font-size: 14px;
+.feature_desc {
+    color: #797070;
 }
 
 .checkbox {
@@ -78,6 +149,7 @@ label {
     margin: 5px 0;
     border: 1px solid #ced4da;
     border-radius: 4px;
+    background-color: #fff;
 }
 
 .submit-btn {
@@ -97,7 +169,7 @@ label {
     background-color: #c82333;
 }
 
-/* Result section styles */
+/* Result Section Styles */
 .result-section {
     max-width: 600px;
     margin: 20px auto;
@@ -113,65 +185,128 @@ label {
     color: #007bff;
 }
 
-/* Mobile first adjustments */
+#result {
+    font-size: 21px;
+    font-weight: bold;
+    margin:0;
+    padding:15px;
+    text-align:left;
+}
+
+#result.not_ok {
+    border: 1px solid #f5c6cb; /* Border matching the background */
+    background-color: #f8d7da; /* Light red/pink background to indicate caution */
+    color: #721c24; /* Dark red text for emphasis */
+}
+
+#result.ok {
+    border: 1px solid #c3e6cb; /* Border matching the background */
+    background-color: #d4edda; /* Light green background to indicate success */
+    color: #155724; /* Dark green text for emphasis */
+}
+
+
+/* Predict Button and Box Styles */
+#predict_button {
+    max-width: 350px;
+    margin: 20px auto;
+}
+
+#prediction_box {
+    display: grid;
+    margin:0;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+
+#predict_wrap {
+    text-align: center;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Advanced Feature Styles */
+.advanced-feature {
+    display: none;
+}
+
+/* Media Queries */
+/* Mobile */
 @media (max-width: 600px) {
     .form-section,
     .result-section {
         padding: 15px;
         grid-template-columns: 1fr;
     }
-}
-#predict_button {
-    max-width:350px;
-    margin:20px auto;
-}
-#prediction_box {
-    display:grid;
-    grid-template-columns: 1fr 1fr;
-}
-#predict_wrap {
-    text-align:center;
+
+    header h1, header h2, header .view-toggle, header .links {
+        text-align:center;
+    }
+    #result {
+        margin-top:0;
+        text-align:center;
+    }
 }
 
-/* Desktop adjustments */
 @media (min-width: 601px) {
     html .form-section {
         max-width: auto !important;
         margin: 0;
         padding: 20px;
-        width: 100%;
     }
+
     #healthForm {
         grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
         display: grid;
         grid-column-gap: 17px;
     }
     header {
-        display:grid;
-        grid-template-columns: auto auto;
-
+        grid-template-columns: 1fr auto auto;
     }
-    header .title {
-        text-align:left;
+    #prediction_box {
+        grid-template-columns: 1fr 1fr;
     }
-    header .links {
-        text-align:right;
-    }
-}
-#result {
-    font-size: 21px;
-    font-weight: bold;
-}
-#result.not_ok {
-    color: darkred;
-}
-#result.ok {
-    color: darkgreen;
-}
-.boolean_features .feature_desc {
-  padding-left: 33px;
-  padding-bottom: 18px;
-}
-.feature_desc {
-  color: #797070;
 }
