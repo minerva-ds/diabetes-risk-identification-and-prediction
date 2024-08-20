@@ -1,17 +1,58 @@
-# D.R.I.P.: Diabetes Risk Identification and Prediction Tool
+# D.R.I.P.: Diabetes Risk Identification and Prediction
+Diabetes affects hundreds of millions worldwide. 22% of adults are undiagnosed and 58% of cases are potentially preventable. **D.R.I.P.**  utlizes machine learning and identifies 81% of individuals at risk for diabetes based on unseen data.
 
 ![Diabetes Risk Prediction](images/drip-header.png)
 
-## Business Understanding
+## Overview
+D.R.I.P.'s [predictive web application](https://minerva-ds.github.io/diabetes-risk-identification-and-prediction/deployment/index.html) pre-screen's people for diabetes risk.  It can be quickly completed with only basic knowledge of your own health metrics such as height, weight, age and blood pressure.  The application runs locally via javascript on the individual's device, ensuring privacy by not storing or sending data.
 
-## Data Understanding
+D.R.I.P. aids healthcare providers in identifying individuals at risk for diabetes and educates users about their personal diabetes risk and its contributing factors.
+
+## Data Source
+D.R.I.P. is powered by a machine learning model trained on the [CDC's 2015 Behavioral Risk Factor Surveillance System](https://www.cdc.gov/brfss/annual_data/annual_2015.html), which was curated into a diabetes subset available from the [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/891/cdc+diabetes+health+indicators). This dataset includes 23 health indicators from over 220,000 respondents, and the CDC has a strong history of providing comprehensive and reliable data. These qualities make an excellent foundation for a model that can give robust predictions.
 
 ## Modeling and Evaluation
+### Baseline Models
+Logistic regression provided a good baseline with an AUC of 0.8124. To explore how model choice would impact prediction, I tested a diverse set of more complex and well-regarded models. These included Random Forest for decision trees, XGBoost and CatBoost for boosting, and RBF, SGD, and TabNet for deep learning. The best-performing baseline models were then selected for hyperparameter tuning.
+
+<img src="images/baseline_models.png" alt="Baseline Models">
+
+### Hypertuned Models
+Two CatBoost models were trained.  One was on the class balanced data and one on the full training data with class weights.  Optuna was used to tune them, as well as a TabNet model.  Logistic was also tuned with GridSearchCV.
+
+<img src="images/hypertuned_models.png" alt="Hypertuned Models">
+
+### Fintuned, Stacked and Averaged Models
+Methods of combining different models was tested.  You can see the results here.  The finetuned CatBoost emerged as the MVP, trained first on the balanced data and then on the full training set.
+
+<img src="images/finetuned_stacked_averaged_models.png" alt="Finetuned, Stacked and Averaged Models">
+
+### MVP Model
+The finetuned CatBoost model is very effective, with a performance score (ROC AUC) of 0.8260. I chose a threshold to ensure the model is cautious, successfully identifying 81% of individuals at risk for diabetes, while maintaining an overall accuracy of 70%.
+<img src="images/roc_auc_final_model.png" alt="ROC AUC Final Model">
+
+### Feature Impact
+Using correlation, feature importance and a report on how the features impact the model, you can see your BMI, age, high blood pressure and cholesterol are highly predictive features.  These align with known diabetes risks.
+#### Mean Feature Impact
+<img src="images/mean_feature_impact.png" alt="Mean Feature Impact">
+
+#### Feature Importance from Random Forest
+<img src="images/feature_importances_rf.png" alt="Feature Importance from Random Forest">
+
+#### Feature and Target Correlation Heatmap
+<img src="images/feature_correlations_with_target.png" alt="Feature Correlations with Target">
+
+### Threshold Tuning
+The threshold was adjusted to maximize recall while still giving a good overall model accuracy.  This lets it catch 81% of people at risk for diabetes while still being 70% accurate overall.
+<img src="images/theshold_final_model.png" alt="Threshold Final Model">
 
 ## Conclusion
+D.R.I.P. predicts 81% of at-risk diabetes cases. It is accessible via a web application that runs on device, ensuring user privacy by not storing or sending any data.  
+
+It meets the goal of helping healthcare providers pre-screen for diabetes risk and helping individuals know their personal diabetes risk and be educated on relevant risk factors.
 
 ## Main Project Files
-[**D.R.I.P.**](https://minerva-ds.github.io/diabetes-risk-identification-and-prediction/deployment/) 
+[**Web Application**](https://minerva-ds.github.io/diabetes-risk-identification-and-prediction/deployment/) 
 <br>Usable single page application that uses your self reported data to predict your diabetes risk.
 
 [**Dashboard**](https://minerva-ds.github.io/diabetes-risk-identification-and-prediction/dashboard_files/combined_dashboard.html)
@@ -23,7 +64,14 @@
 [**Presentation**](presentation.pdf)
 <br>The presentation slides.
 
+## Advanced View
+The default "simple" view of the web application limits the form to the most predictive features.  Selecting advanced view will reveal all base features used for training and calculate interaction terms behind the scenes.  The default action is to leave all "advanced" features as 0 or 1, whichever is the lowest number in the feature.
+
+## Areas For Improvement
+Certain health metrics, such as cholesterol checks, correlate with higher diabetes risk. This correlation might reflect underlying health issues prompting frequent screenings, rather than direct causation. Additionally, less predictive features might slightly skew risk assessments; for instance, poorer mental health could misleadingly appear to lower diabetes risk. This phenomenon may result from dominant features overshadowing weaker ones, unrecognized complex relationships, model limitations, data constraints, or infrequent occurrences of certain features. Removing these less predictive features during training actually lowered model accuracy. The existing model setup, refined through thorough testing and feature engineering, strives to finely tune diabetes risk predictions.  However, Data Science is nothing if not iterative and improvements are almost always possible.
+
 ## Further Development
+Adding health indicators and exploring novel techniques with the current dataset could lead to further improvement. Other data sets can also be looked into and see if models with more predictive power can be made.  Data science is iterative, and continuous improvement is always possible.
 
 ## Repository Structure
 
