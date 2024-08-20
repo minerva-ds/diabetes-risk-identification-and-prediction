@@ -41,12 +41,12 @@
 | │   │   ├── catboost_model.onnx    | Default CatBoost model in ONNX format                     |
 | │   │   └── model.onnx             | General model file                                        |
 | │   ├── **/scripts**               | Scripts used in deployment                                |
-| │   │   └── dump_model.py          | Script for dumping model into deployable format           |
+| │   │   └── dump_model.py          | Script for dumping model info for debugging
 | │   ├── styles.css                 | CSS styles for the deployment frontend                    |
 | │   └── **/test_onnx**             | HTML files for testing ONNX models                        |
 | │       └── simple-example.html    | Simple HTML file for ONNX model testing                   |
 | └── index.html                     | Main HTML file linking to project components              |
-| **/environment_no_builds.yml**     | Conda environment file                                    |
+| **/environment_no_builds.yml**     | More system agnostic conda environment file                                    |
 | **/environment_ubuntu.yml**        | Ubuntu-specific Conda environment file                    |
 | **/images**                        | Directory for storing images used in README or notebooks  |
 | ├── drip-header.png                | Header image for README or documentation                  |
