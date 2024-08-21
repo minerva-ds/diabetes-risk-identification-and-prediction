@@ -27,7 +27,7 @@ D.R.I.P. is powered by a machine learning model trained on the [CDC's 2015 Behav
 
 ## Modeling and Evaluation
 ### Baseline Models
-Logistic regression provided a good baseline with an AUC of 0.8124. To explore how model choice would impact prediction, I tested a diverse set of more complex and well-regarded models. These included Random Forest for decision trees, XGBoost and CatBoost for boosting, and RBF, SGD, and TabNet for deep learning. The best-performing baseline models were then selected for hyperparameter tuning.
+Logistic regression provided a good baseline with an AUC of 0.8124. To explore how model choice would impact prediction, I tested a diverse set of more complex and well-regarded models. These included Random Forest for decision trees, XGBoost and CatBoost for boosting, and MLP, SGD, and TabNet for deep learning. The best-performing baseline models were then selected for hyperparameter tuning.
 
 <img src="images/baseline_models.png" alt="Baseline Models">
 
