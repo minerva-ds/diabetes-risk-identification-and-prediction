@@ -17,7 +17,7 @@ Sources:
 This global prevalence of diabetes reflects an urgent need for effective preventive measures and early detection tools, which is where this project can help.
 
 ## Web Application
-The projects deployment is a [predictive web application](https://minerva-ds.github.io/diabetes-risk-identification-and-prediction/deployment/index.html) that can be quickly completed with only basic knowledge of your own health metrics such as height, weight, age and blood pressure.  The application runs via JavaScript using ONNX Runtime Web[^3] on the individual's device, ensuring privacy by not storing or sending data. It works on both desktop and mobile devices.
+The projects deployment is a [predictive web application](https://minerva-ds.github.io/diabetes-risk-identification-and-prediction/deployment/index.html)[^4] that can be quickly completed with only basic knowledge of your own health metrics such as height, weight, age and blood pressure.  The application runs via JavaScript using ONNX Runtime Web[^3] on the individual's device, ensuring privacy by not storing or sending data. It works on both desktop and mobile devices.
 
 ### Advanced View
 The default "simple" view of the web application limits the form to the most predictive features.  This is the recommended way to use the application, but the advanced view is given for transparency.  The hidden features are defaulted to off.  Selecting advanced view will reveal all base features used for training and calculate as necessary behind the scenes.
