@@ -1,12 +1,22 @@
 # D.R.I.P.: Diabetes Risk Identification and Prediction
-Diabetes affects hundreds of millions worldwide. 22% of adults are undiagnosed and 58% of cases are potentially preventable. **D.R.I.P.**  utlizes machine learning and identifies 81% of individuals at risk for diabetes based on unseen data.
+Diabetes affects over 460 million people globally with an estimated 22% of adults remaining undiagnosed.  This project's [predictive web application](https://minerva-ds.github.io/diabetes-risk-identification-and-prediction/deployment/index.html) pre-screens people for diabetes risk.  It can be quickly completed with only basic knowledge of your own health metrics such as height, weight, age and blood pressure.  The application runs via JavaScript using ONNX Runtime Web on the individual's device, ensuring privacy by not storing or sending data.
+
+D.R.I.P. supports healthcare providers by identifying individuals at risk for diabetes and educates users about their personal diabetes risk and its contributing factors. The final model achieved a ROC AUC score of 0.826 and successfully indentified 81% of at-risk individuals on unseen data.
 
 ![Diabetes Risk Prediction](images/drip-header.png)
 
-## Overview
-D.R.I.P.'s [predictive web application](https://minerva-ds.github.io/diabetes-risk-identification-and-prediction/deployment/index.html) pre-screen's people for diabetes risk.  It can be quickly completed with only basic knowledge of your own health metrics such as height, weight, age and blood pressure.  The application runs locally via javascript on the individual's device, ensuring privacy by not storing or sending data.
+## Project Context
+<img src="images/diabetes_facts.png" alt="Diabetes Facts">
 
-D.R.I.P. aids healthcare providers in identifying individuals at risk for diabetes and educates users about their personal diabetes risk and its contributing factors.
+Sources:
+[NIH](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7310804/), 
+[CDC](https://www.cdc.gov/diabetes/php/data-research/index.html),
+[kidney.org](https://www.kidney.org/kidney-topics/diabetes-major-risk-factor-kidney-disease),
+[diabetes.org](https://diabetes.org/newsroom/press-releases/new-american-diabetes-association-report-finds-annual-costs-diabetes-be),
+[WHO](https://www.who.int/news-room/fact-sheets/detail/diabetes),
+[Harvard Health](https://www.health.harvard.edu/blog/healthy-lifestyle-can-prevent-diabetes-and-even-reverse-it-2018090514698)
+
+This global prevalence of diabetes reflects an urgent need for effective preventive measures and early detection tools, which is where this project can help.
 
 ## Data Source
 D.R.I.P. is powered by a machine learning model trained on the [CDC's 2015 Behavioral Risk Factor Surveillance System](https://www.cdc.gov/brfss/annual_data/annual_2015.html), which was curated into a diabetes subset available from the [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/891/cdc+diabetes+health+indicators). This dataset includes 23 health indicators from over 220,000 respondents, and the CDC has a strong history of providing comprehensive and reliable data. These qualities make an excellent foundation for a model that can give robust predictions.
@@ -46,6 +56,9 @@ Using correlation, feature importance and a report on how the features impact th
 The threshold was adjusted to maximize recall while still giving a good overall model accuracy.  This lets it catch 81% of people at risk for diabetes while still being 70% accurate overall.
 <img src="images/theshold_final_model.png" alt="Threshold Final Model">
 
+### Improvement Over Baseline
+Compared to the first Logistic Regression model the Finetuned CatBoost model improved its ROC AUC score from .812 to .826.  However, before extensive cleaning, data preparation and feature engineering initial models got below .8 ROC AUC.  This shows just how important these steps are in making models perform better.
+
 ## Conclusion
 D.R.I.P. predicts 81% of at-risk diabetes cases. It is accessible via a web application that runs on device, ensuring user privacy by not storing or sending any data.  
 
@@ -68,7 +81,27 @@ It meets the goal of helping healthcare providers pre-screen for diabetes risk a
 The default "simple" view of the web application limits the form to the most predictive features.  Selecting advanced view will reveal all base features used for training and calculate interaction terms behind the scenes.  The default action is to leave all "advanced" features as 0 or 1, whichever is the lowest number in the feature.
 
 ## Areas For Improvement
-Certain health metrics, such as cholesterol checks, correlate with higher diabetes risk. This correlation might reflect underlying health issues prompting frequent screenings, rather than direct causation. Additionally, less predictive features might slightly skew risk assessments; for instance, poorer mental health could misleadingly appear to lower diabetes risk. This phenomenon may result from dominant features overshadowing weaker ones, unrecognized complex relationships, model limitations, data constraints, or infrequent occurrences of certain features. Removing these less predictive features during training actually lowered model accuracy. The existing model setup, refined through thorough testing and feature engineering, strives to finely tune diabetes risk predictions.  However, Data Science is nothing if not iterative and improvements are almost always possible.
+### High False Positive Rate
+Although the model achieves 70% overall accuracy and an 81% recall rate for diabetic classifications, it also incorrectly identifies many non-diabetics as at risk. This trade-off between recall and precision is typical in classification models. Despite significant efforts to optimize this model and achieving the highest ROC AUC score compared to other projects using the same dataset at the time of this writing and after an extensive review of projects available, reducing false positives remains a challenge. This suggests potential limitations in the dataset's ability to support a perfect balance between precision and recall. Further model refinements could aim to enhance diabetes risk identification while minimizing unnecessary healthcare costs associated with false detections.
+
+Below is the confusion matrix for the final model.
+<img src="images/confusion_matrix_threshold_final_model.png" alt="Final Model Confusion Matrix">
+
+Below is the classification report for the final model.  Note especially the recall and accuracy cited in this readme for Class 1.
+
+|            | Precision | Recall | F1-score | Support |
+|------------|-----------|--------|----------|---------|
+| **Class 0** | 0.95      | 0.68   | 0.79     | 38,746  |
+| **Class 1** | 0.31      | 0.81   | 0.45     | 6,836   |
+| **Accuracy**  |           |        | 0.70     | 45,582  |
+| **Macro Avg** | 0.63      | 0.74   | 0.62     | 45,582  |
+| **Weighted Avg** | 0.86  | 0.70   | 0.74     | 45,582  |
+
+
+### Some Feature Interactions
+Certain health metrics, such as cholesterol checks, correlate with higher diabetes risk. This correlation might reflect underlying health issues prompting frequent screenings, rather than direct causation. Additionally, less predictive features might slightly skew risk assessments; for instance, poorer mental health could misleadingly appear to lower diabetes risk. This phenomenon may result from dominant features overshadowing weaker ones, unrecognized complex relationships, model limitations, data constraints, or infrequent occurrences of certain features. Removing these less predictive features during training actually lowered model accuracy. 
+
+The existing model setup, refined through thorough testing and feature engineering, strives to finely tune diabetes risk predictions.  However, Data Science is nothing if not iterative and improvements are almost always possible.
 
 ## Further Development
 Adding health indicators and exploring novel techniques with the current dataset could lead to further improvement. Other data sets can also be looked into and see if models with more predictive power can be made.  Data science is iterative, and continuous improvement is always possible.
@@ -105,9 +138,8 @@ Adding health indicators and exploring novel techniques with the current dataset
 | **/environment_no_builds.yml**     | More system agnostic conda environment file                                    |
 | **/environment_ubuntu.yml**        | Ubuntu-specific Conda environment file                    |
 | **/images**                        | Directory for storing images used in README or notebooks  |
-| ├── drip-header.png                | Header image for README or documentation                  |
-| **/notebook.ipynb**                | Jupyter notebook with the project analysis                |
-| **/README.md**                     | README file for project overview and navigation           |
+| **notebook.ipynb**                | Jupyter notebook with the project analysis                |
+| **README.md**                     | README file for project overview and navigation           |
 | **/scrapbook**                     | Additional notebooks for exploratory analysis             |
 | └── scrapbook.ipynb                | Notebook for storing miscellaneous analyses               |
 
