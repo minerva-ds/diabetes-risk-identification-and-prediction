@@ -1,7 +1,5 @@
 # D.R.I.P.: Diabetes Risk Identification and Prediction
-Diabetes affects over 460 million people globally with an estimated 22% of adults remaining undiagnosed.  This project's [predictive web application](https://minerva-ds.github.io/diabetes-risk-identification-and-prediction/deployment/index.html) pre-screens people for diabetes risk.  It can be quickly completed with only basic knowledge of your own health metrics such as height, weight, age and blood pressure.  The application runs via JavaScript using ONNX Runtime Web on the individual's device, ensuring privacy by not storing or sending data.
-
-D.R.I.P. supports healthcare providers by identifying individuals at risk for diabetes and educates users about their personal diabetes risk and its contributing factors. The final model achieved a ROC AUC score of 0.826 and successfully indentified 81% of at-risk individuals on unseen data.
+Diabetes impacts over 460 million people globally, with an estimated 22% of adults undiagnosed. D.R.I.P. is a [predictive web application](https://minerva-ds.github.io/diabetes-risk-identification-and-prediction/deployment/index.html) designed to help healthcare providers pre-screen for diabetes risk and educate individuals about their risk factors. Powered by a machine learning model trained on data from the CDC's Behavioral Risk Factor Surveillance System, the application achieves a ROC AUC score of 0.826, successfully identifying 81% of at-risk individuals.
 
 ![Diabetes Risk Prediction](images/drip-header.png)
 
@@ -17,6 +15,9 @@ Sources:
 [Harvard Health](https://www.health.harvard.edu/blog/healthy-lifestyle-can-prevent-diabetes-and-even-reverse-it-2018090514698)
 
 This global prevalence of diabetes reflects an urgent need for effective preventive measures and early detection tools, which is where this project can help.
+
+## Web Application
+The projects deployment is a [predictive web application](https://minerva-ds.github.io/diabetes-risk-identification-and-prediction/deployment/index.html) that can be quickly completed with only basic knowledge of your own health metrics such as height, weight, age and blood pressure.  The application runs via JavaScript using ONNX Runtime Web on the individual's device, ensuring privacy by not storing or sending data. It works on both desktop and mobile devices.
 
 ## Data Source
 D.R.I.P. is powered by a machine learning model trained on the [CDC's 2015 Behavioral Risk Factor Surveillance System](https://www.cdc.gov/brfss/annual_data/annual_2015.html), which was curated into a diabetes subset available from the [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/891/cdc+diabetes+health+indicators). This dataset includes 23 health indicators from over 220,000 respondents, and the CDC has a strong history of providing comprehensive and reliable data. These qualities make an excellent foundation for a model that can give robust predictions.
