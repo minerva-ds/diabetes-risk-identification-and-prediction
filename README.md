@@ -107,6 +107,11 @@ The existing model setup, refined through thorough testing and feature engineeri
 ## Further Development
 Adding health indicators and exploring novel techniques with the current dataset could lead to further improvement. Other data sets can also be looked into and see if models with more predictive power can be made.  Data science is iterative, and continuous improvement is always possible.
 
+## Next Steps
+The next steps for this project are covered in summary below.
+
+<img src="images/next_steps.png" alt="Next Steps">
+
 ## Repository Structure
 
 | Directory/File                     | Description                                               |
