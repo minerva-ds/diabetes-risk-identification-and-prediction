@@ -1,5 +1,5 @@
-# D.R.I.P.: Diabetes Risk Identification and Prediction
-Diabetes impacts over 460 million people globally, with an estimated 22% of adults undiagnosed. D.R.I.P. is a [predictive web application](https://minerva-ds.github.io/diabetes-risk-identification-and-prediction/deployment/index.html)[^4] designed to help healthcare providers pre-screen for diabetes risk and educate individuals about their risk factors. Powered by a machine learning[^1] model trained on data from the CDC's Behavioral Risk Factor Surveillance System, the application achieves a ROC AUC[^2] score of 0.826, successfully identifying 81% of at-risk individuals.
+# Diabetes Risk Identification and Prediction (D.R.I.P.)
+Diabetes impacts over 460 million people globally, with an estimated 22% of adults undiagnosed. Diabetes Risk Identification and Prediction (D.R.I.P.) is a [predictive web application](https://minerva-ds.github.io/diabetes-risk-identification-and-prediction/deployment/index.html)[^4] designed to help healthcare providers pre-screen for diabetes risk and educate individuals about their risk factors. Powered by a machine learning[^1] model trained on data from the CDC's Behavioral Risk Factor Surveillance System, the application achieves a ROC AUC[^2] score of 0.826, successfully identifying 81% of at-risk individuals.
 
 ![Diabetes Risk Prediction](images/drip-header.png)
 
@@ -17,13 +17,13 @@ Sources:
 This global prevalence of diabetes reflects an urgent need for effective preventive measures and early detection tools, which is where this project can help.
 
 ## Web Application
-The projects deployment is a [predictive web application](https://minerva-ds.github.io/diabetes-risk-identification-and-prediction/deployment/index.html)[^4] that can be quickly completed with only basic knowledge of your own health metrics such as height, weight, age and blood pressure.  The application runs via JavaScript using ONNX Runtime Web[^3] on the individual's device, ensuring privacy by not storing or sending data. It works on both desktop and mobile devices.
+The project's deployment is a [predictive web application](https://minerva-ds.github.io/diabetes-risk-identification-and-prediction/deployment/index.html)[^4] that can be quickly completed with only basic knowledge of your own health metrics such as height, weight, age and blood pressure.  The application runs via JavaScript using ONNX Runtime Web[^3] on the individual's device, ensuring privacy by not storing or sending data. It works on both desktop and mobile devices.
 
 ### Advanced View
-The default "simple" view of the web application limits the form to the most predictive features.  This is the recommended way to use the application, but the advanced view is given for transparency.  The hidden features are defaulted to off.  Selecting advanced view will reveal all base features used for training and calculate as necessary behind the scenes.
+The default "simple" view of the web application limits the form to the most predictive features.  This is the recommended way to use the application.  If you click the checkbox for advanced view, features that are defaulted to off will be revealed to you and you can fill them out.  Advanced view is mostly for transparency and testing. 
 
 ## Data Source
-D.R.I.P. is powered by a machine learning model trained on the [CDC's 2015 Behavioral Risk Factor Surveillance System](https://www.cdc.gov/brfss/annual_data/annual_2015.html), which was curated into a diabetes subset available from the [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/891/cdc+diabetes+health+indicators). This dataset includes 23 health indicators from over 220,000 respondents, and the CDC has a strong history of providing comprehensive and reliable data. These qualities make an excellent foundation for a model that can give robust predictions.
+Diabetes Risk Identification and Prediction (D.R.I.P.) is powered by a machine learning model trained on the [CDC's 2015 Behavioral Risk Factor Surveillance System](https://www.cdc.gov/brfss/annual_data/annual_2015.html), which was curated into a diabetes subset available from the [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/891/cdc+diabetes+health+indicators). This dataset includes 23 health indicators from over 220,000 respondents, and the CDC has a strong history of providing comprehensive and reliable data. These qualities make an excellent foundation for a model that can give robust predictions.
 
 ## Modeling and Evaluation
 ### Baseline Models
@@ -37,16 +37,16 @@ Two CatBoost models were trained.  One was on the class balanced data and one on
 <img src="images/hypertuned_models.png" alt="Hypertuned Models">
 
 ### Finetuned, Stacked and Averaged Models
-Methods of combining different models was tested.  You can see the results here.  The finetuned CatBoost emerged as the MVP, trained first on the balanced data and then on the full training set.
+Methods of stacking, averaging and finetuning models were tested.  The finetuned CatBoost emerged as the strongest model and is the Minimum Viable Product (MVP).  It was trained first on the balanced data and then on the full training set.
 
 <img src="images/finetuned_stacked_averaged_models.png" alt="Finetuned, Stacked and Averaged Models">
 
 ### MVP Model
-The finetuned CatBoost model is very effective, with a performance score (ROC AUC) of 0.8260. I chose a threshold to ensure the model is cautious, successfully identifying 81% of individuals at risk for diabetes, while maintaining an overall accuracy of 70%.
+The finetuned CatBoost model is very effective, with a performance score (ROC AUC) of 0.8260. I chose a .32 threshold to ensure the model is cautious, successfully identifying 81% of individuals at risk for diabetes, while maintaining an overall accuracy of 70%.
 <img src="images/roc_auc_final_model.png" alt="ROC AUC Final Model">
 
 ### Feature Impact
-Using correlation, feature importance and a report on how the features impact the model, you can see your BMI, age, high blood pressure and cholesterol are highly predictive features.  These align with known diabetes risks.
+Using a correlation map of the features to the target, feature importance and a report on how the features impact the model, you can see your BMI, age, high blood pressure and cholesterol are highly predictive features.  These align with known diabetes risks.
 #### Mean Feature Impact
 <img src="images/mean_feature_impact.png" alt="Mean Feature Impact">
 
@@ -57,21 +57,21 @@ Using correlation, feature importance and a report on how the features impact th
 <img src="images/feature_correlations_with_target.png" alt="Feature Correlations with Target">
 
 ### Threshold Tuning
-The threshold was adjusted to maximize finding those at risk while still giving a good overall model accuracy.  This lets it catch 81% of people at risk for diabetes while still being 70% accurate overall.
+The threshold was adjusted to maximize finding those at risk while still giving a good overall model accuracy. This allows it to identify 81% of individuals at risk for diabetes while maintaining an overall accuracy of 70%.
 <img src="images/theshold_final_model.png" alt="Threshold Final Model">
 
 ### Improvement Over Baseline
-Compared to the first Logistic Regression model the Finetuned CatBoost model improved its ROC AUC score from .812 to .826.  However, before extensive cleaning, data preparation and feature engineering initial models got below .8 ROC AUC.  This shows just how important these steps are in creating a better performing model.
+Compared to the first Logistic Regression model the Finetuned CatBoost model improved its ROC AUC score from .812 to .826.  However, before extensive cleaning, data preparation, and feature engineering, the initial models achieved an ROC AUC below 0.8.  This shows just how important these steps are in creating a better performing model.
 
 ## Main Project Files
 [**Web Application**](https://minerva-ds.github.io/diabetes-risk-identification-and-prediction/deployment/) 
-<br>Usable single page application that uses your self reported data to predict your diabetes risk.
+<br>A single-page application that uses your self reported data to predict your diabetes risk.
 
 [**Dashboard**](https://minerva-ds.github.io/diabetes-risk-identification-and-prediction/dashboard_files/combined_dashboard.html)
 <br>Interactive charts from the project.
 
 [**Final Notebook**](notebook.ipynb)
-<br>The entire process used to make the tool and charts well documented in a Jupyer notebook with markdown.
+<br>The entire process used to make the tool and charts well documented in a Jupyter notebook with markdown.
 
 [**Presentation**](presentation.pdf)
 <br>The presentation slides.
@@ -80,12 +80,12 @@ Compared to the first Logistic Regression model the Finetuned CatBoost model imp
 ### Number of False Positives
 This metric reflects the number of individuals wrongly identified as at risk for diabetes by the model. While the model achieves a 70% overall accuracy and correctly identifies 81% of genuine at-risk cases, it also mislabels people as at risk when they are not. In medical diagnostics, it is often preferable to err on the side of caution by identifying more potential at-risk individuals, rather than missing those who may require intervention. This approach ensures fewer at-risk individuals are overlooked, even though it may lead to increased costs and unnecessary stress for those not at risk.
 
-Extensive efforts were taken to optimize the model, which after a review boasts the highest ROC AUC score compared to other projects using the same dataset that I could find, the limitations inherent to the dataset itself might constrain further improvements in reducing false positives. Improving the model further and making it more predictive though is a continous goal.
+Extensive efforts were taken to optimize the model, which after a review boasts the highest ROC AUC score compared to other projects using the same dataset that I could find, the limitations inherent to the dataset itself might constrain further improvements in reducing false positives. Improving the model further and making it more predictive though is a continuous goal.
 
 Below is the confusion matrix for the final model.
 <img src="images/confusion_matrix_threshold_final_model.png" alt="Final Model Confusion Matrix">
 
-Below is the classification report for the final model.  Note especially the recall and accuracy cited in this readme for Class 1.
+The table below shows the classification report for the final model.  Note especially the recall for Class 1 and accuracy cited in this README.
 
 |            | Precision | Recall | F1-score | Support |
 |------------|-----------|--------|----------|---------|
@@ -97,7 +97,7 @@ Below is the classification report for the final model.  Note especially the rec
 
 
 ### Some Feature Interactions
-An intriguing interaction involves the feature "Have you had your cholesterol checked within the last 5 years?" While the model suggests this increases diabetes risk, it likely indicates that individuals getting these checks might have pre-existing health concerns that necessitate such tests. However, staying on top of your health with checks is in itself a good thing. 
+An intriguing interaction involves checking the feature "Have you had your cholesterol checked within the last 5 years?" While the model suggests this increases diabetes risk, it likely indicates that individuals getting these checks might have pre-existing health concerns that necessitate such tests. However, staying on top of your health with checks is in itself a good thing. 
 
 The model displays non-intuitive outcomes for various less predictive features. For instance, configurations indicating poorer mental health sometimes appear to slightly reduce the predicted risk of diabetes. However, removing these less predictive features has been shown to degrade model performance. These unexpected results could stem from several factors: rare co-occurrences of specific feature combinations, not fully understood interactions between features, dominant features overshadowing weaker ones, or inherent dataset limitations. As with all data science endeavors, the project is subject to continuous refinement to improve accuracy and reliability.
 
@@ -110,7 +110,7 @@ The next steps for this project are covered in summary below.
 <img src="images/next_steps.png" alt="Next Steps">
 
 ## Conclusion
-D.R.I.P. predicts 81% of at-risk diabetes cases and has identified and predicts on many well known risks of diabetes. It is accessible via a web application that runs on device, ensuring user privacy by not storing or sending any data.  
+Diabetes Risk Identification and Prediction(D.R.I.P.) predicts 81% of at-risk diabetes cases and has identified and predicts on many well known risks of diabetes. It is accessible via a web application that runs locally on the user's device, ensuring user privacy by not storing or sending any data.  
 
 It meets the goal of helping healthcare providers pre-screen for diabetes risk and helping individuals know their personal diabetes risk and be educated on relevant risk factors.
 
@@ -174,6 +174,9 @@ cd diabetes-risk-identification-and-prediction
 #### 2. **Install Conda**
 Ensure Conda is installed on your system. If not already installed, you can download it from [Miniconda](https://docs.conda.io/en/latest/miniconda.html) or [Anaconda](https://www.anaconda.com/products/individual).
 
+#### 3. **Nvidia GPU**
+I used CUDA to train many models so it is recommended you do the same or be able to alter the code to run with CPU.
+
 ### Quick Setup Options
 After completing the prerequisites, choose one of the following quick setup options based on your operating system.
 
@@ -223,3 +226,16 @@ This setup process ensures your development environment is prepared correctly, l
 [^2]: **ROC AUC (Receiver Operating Characteristic Area Under the Curve)**: A performance measurement for classification problems at various threshold settings. ROC is a probability curve, and AUC represents the degree or measure of separability.
 [^3]: **ONNX Runtime Web**: An open-source runtime that allows running ONNX (Open Neural Network Exchange) models on web browsers.
 [^4]: **Predictive Web Application**: A predictive web application is a web-based tool that uses machine learning or statistical models to forecast future events based on historical data.
+
+# Author
+Chisum Lindauer
+
+# Credits
+* Slide theme taken from [Slidesgo](https://slidesgo.com/theme/type-2-diabetes-breakthrough#search-Diabetes&position-7&results-29) with additional icons recolored by me to fit the theme.
+* Header image modified from a royalty free image from [Vectorstock](https://www.vectorstock.com/royalty-free-vector/diabetes-mellitus-concept-banner-header-vector-22864871)
+
+# Thank You
+* [Flatiron School](https://flatironschool.com/) for their great program, teaching staff and cohort.
+* Family and friends for all the support and love they gave me.
+* My cat Biscuit for being a constant coding companion.
+* **You**, for taking the time to read this!
