@@ -221,21 +221,21 @@ conda list
 
 This setup process ensures your development environment is prepared correctly, letting you focus fully on your project.
 
+## Author
+Chisum Lindauer
+
+## Credits
+* Slide theme taken from [Slidesgo](https://slidesgo.com/theme/type-2-diabetes-breakthrough#search-Diabetes&position-7&results-29) with additional icons recolored by me to fit the theme.
+* Header image modified from a royalty free image from [Vectorstock](https://www.vectorstock.com/royalty-free-vector/diabetes-mellitus-concept-banner-header-vector-22864871)
+
+## Thank You
+* [Flatiron School](https://flatironschool.com/) for their great program, teaching staff and cohort.
+* Family and friends for all the support and love they gave me.
+* My cat Biscuit for being a constant coding companion.
+* **You**, for taking the time to read this!
+
 ## Footnotes
 [^1]: **Machine Learning**: A branch of artificial intelligence that involves teaching computers to learn from data, without being explicitly programmed.
 [^2]: **ROC AUC (Receiver Operating Characteristic Area Under the Curve)**: A performance measurement for classification problems at various threshold settings. ROC is a probability curve, and AUC represents the degree or measure of separability.
 [^3]: **ONNX Runtime Web**: An open-source runtime that allows running ONNX (Open Neural Network Exchange) models on web browsers.
 [^4]: **Predictive Web Application**: A predictive web application is a web-based tool that uses machine learning or statistical models to forecast future events based on historical data.
-
-# Author
-Chisum Lindauer
-
-# Credits
-* Slide theme taken from [Slidesgo](https://slidesgo.com/theme/type-2-diabetes-breakthrough#search-Diabetes&position-7&results-29) with additional icons recolored by me to fit the theme.
-* Header image modified from a royalty free image from [Vectorstock](https://www.vectorstock.com/royalty-free-vector/diabetes-mellitus-concept-banner-header-vector-22864871)
-
-# Thank You
-* [Flatiron School](https://flatironschool.com/) for their great program, teaching staff and cohort.
-* Family and friends for all the support and love they gave me.
-* My cat Biscuit for being a constant coding companion.
-* **You**, for taking the time to read this!
